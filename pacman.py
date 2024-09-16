@@ -15,8 +15,11 @@ class PacMan:
         self.changed_direction = None
         self.mouth_open_angle = 45  # Angle of the mouth opening (in degrees)
         self.lives = 3
-        self.screen_pos = grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
-        self.rect = pygame.Rect(self.screen_pos, PACMAN_SIZE)
+        #self.screen_pos = grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
+        self.rect = pygame.Rect(self._get_screen_pos(), PACMAN_SIZE)
+
+    def _get_screen_pos(self):
+        return grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
         
     def draw(self):
         # Load the Pac-Man image
@@ -41,24 +44,26 @@ class PacMan:
         self.screen.blit(rotated_image, (screen_x, screen_y))
 
     def move(self):
-        if self.direction:
-            pass
-        
-            # TODO: Extraire la direction de déplacement à partir de l'attribut `self.direction`.
+        if self.direction:        
+            # [x] Extraire la direction de déplacement à partir de l'attribut `self.direction`.
+            vect = self.direction
             
-            # TODO: Calculer les nouvelles coordonnées X et Y en fonction de la direction
+            # [x] Calculer les nouvelles coordonnées X et Y en fonction de la direction
             # Ajouter la direction à la position actuelle (self.x, self.y) pour obtenir la nouvelle position.
+            new_x, new_y = self.x + vect[0], self.y + vect[1]
 
-            # TODO: Vérifier si la nouvelle position entre en collision avec un mur
+            # [x] Vérifier si la nouvelle position entre en collision avec un mur
             # Utiliser `self.board[new_y][new_x]` pour voir si la case correspond à un chemin (0) ou à un mur (1).
+            if(not self.board[new_y][new_x]):
+                # [x] Mettre à jour la position de Pac-Man si aucun mur n'est rencontré
+                self.x, self.y = new_x, new_y
 
-                # TODO: Mettre à jour la position de Pac-Man si aucun mur n'est rencontré
-
-                # TODO: Convertir les nouvelles coordonnées de la grille en position à l'écran
+                # [x] Convertir les nouvelles coordonnées de la grille en position à l'écran
                 # Utiliser une fonction comme `grid_to_screen` pour obtenir les coordonnées sur l'écran.
 
-                # TODO: Mettre à jour la position du rectangle de Pac-Man dans l'interface
+                # [x] Mettre à jour la position du rectangle de Pac-Man dans l'interface
                 # Mettre à jour `self.rect.topleft` avec la nouvelle position à l'écran pour déplacer l'affichage de Pac-Man.
+                self.rect.topleft = self._get_screen_pos()
 
     def set_direction(self, direction):
         self.direction = direction
