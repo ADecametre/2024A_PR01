@@ -1,0 +1,47 @@
+{
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "issue-draft",
+      "foreground": "#ff09"
+    },
+    "[ ]": {
+      "icon": "issue-opened",
+      "foreground": "#ff0e",
+      "type": "text",
+      "gutterIcon": true
+    },
+    "[x]": {
+      "icon": "issue-closed",
+      "foreground": "#0c07",
+      "type": "text",
+      "textDecoration": "line-through",
+      "gutterIcon": true,
+      "hideFromTree": false,
+      "hideFromActivityBar": false,
+      "hideFromStatusBar": false
+    }
+},
+"todo-tree.tree.showBadges": true,
+"todo-tree.tree.showCountsInTree": true,
+"todo-tree.tree.disableCompactFolders": false,
+"todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+"todo-tree.tree.labelFormat": "${after}",
+"todo-tree.tree.scanMode": "workspace only",
+"todo-tree.general.tagGroups": {
+  "TODO":[
+    "TODO:",
+    "TODO :",
+    "TODO"
+  ]
+},
+"todo-tree.general.tags": [
+  "BUG",
+  "HACK",
+  "FIXME",
+  "TODO:",
+  "TODO",
+  "XXX",
+  "[ ]",
+  "[x]",
+]
+}
