@@ -47,4 +47,4 @@ def create_coins(board):
 
 def create_special_coins(board):
     # [x] Ajouter des coins aux positions spéciales, en utilisant la variable 'special_coins_pos'.
-    return special_coins_pos
+    return special_coins_pos.copy()
