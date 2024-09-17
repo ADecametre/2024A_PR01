@@ -2,6 +2,7 @@ import pygame
 from config import *
 import random
 
+# BUG Problème de collision entre Ghost et PacMan
 class Ghost:
     def __init__(self, pos, img, maze, screen):
         self.pos = list(pos)  # Position en pixels

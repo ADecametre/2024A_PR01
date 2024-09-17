@@ -20,6 +20,8 @@ class PacMan:
 
     def _get_screen_pos(self):
         return grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
+    
+    def get_pos(self): return (self.x, self.y)
         
     def draw(self):
         # Load the Pac-Man image
