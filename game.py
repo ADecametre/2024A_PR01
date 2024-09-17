@@ -73,11 +73,11 @@ class Game:
                     pygame.draw.rect(self.screen, (255, 255, 255), (col * 50, row * 50, 50, 50))
 
                     # Draw the coins
-                    if (row, col) in self.coins:
+                    if (col, row) in self.coins:
                         pygame.draw.circle(self.screen, (255, 215, 0), (col * 50 + 25, row * 50 + 25), 4)
 
                     # Draw the special coins
-                    if (row, col) in self.special_coins:
+                    if (col, row) in self.special_coins:
                         pygame.draw.circle(self.screen, (255, 215, 0), (col * 50 + 25, row * 50 + 25), 8)
 
         # Draw the score

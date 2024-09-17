@@ -1,5 +1,5 @@
-special_coins_pos = [(1, 1), (1, 14), (13, 1), (13, 14)]
-center_pos = [(7, 11), (7, 12), (7, 13), (7, 14)]
+special_coins_pos = [(1, 1), (14, 1), (1, 13), (14, 13)]
+center_pos = [(12, 7), (11, 7), (13, 7), (14, 7)]
 
 def create_board():
 
@@ -40,8 +40,8 @@ def create_coins(board):
     # [x] Retirer les coins aux positions centrales, en utilisant la variable 'center_pos'.
     for i in range(len(board)):
         for j in range(len(board[i])):
-            if(board[i][j] == 0 and (i, j) not in special_coins_pos + center_pos):
-                coins.append((i,j))
+            if(board[i][j] == 0 and (j, i) not in special_coins_pos + center_pos):
+                coins.append((j,i))
 
     return coins
 
