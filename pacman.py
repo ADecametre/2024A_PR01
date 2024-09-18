@@ -11,6 +11,7 @@ class PacMan:
         self.size = 40  # Size of Pac-Man (radius)
         self.color = (255, 255, 0)  # Yellow color for Pac-Man
         self.size_grid = 50  
+        self.premove_direction = None
         self.direction = None
         self.frame_count = 0
         self.changed_direction = None
@@ -55,35 +56,38 @@ class PacMan:
                     return False
         return True
     
-    def calculate_new_pos(self, direction=None):
-        if(direction==None): direction=self.direction
-        return self.x + direction[0] * self.speed, self.y + direction[1] * self.speed
-        
+    def calculate_new_pos(self, vect):
+        if(vect == None): return None
+        new_pos = self.x + vect[0] * self.speed, self.y + vect[1] * self.speed
+        return new_pos if self.check_collision(new_pos) else None
 
     def move(self):
-        if self.direction:        
             # [x] Extraire la direction de déplacement à partir de l'attribut `self.direction`.
             # vect = self.direction
-            
             # [x] Calculer les nouvelles coordonnées X et Y en fonction de la direction
             # Ajouter la direction à la position actuelle (self.x, self.y) pour obtenir la nouvelle position.
-            new_pos = self.calculate_new_pos() #self.x + vect[0] * self.speed, self.y + vect[1] * self.speed
-
             # [x] Vérifier si la nouvelle position entre en collision avec un mur
             # Utiliser `self.board[new_y][new_x]` pour voir si la case correspond à un chemin (0) ou à un mur (1).
-            if(self.check_collision(new_pos)):
                 # [x] Mettre à jour la position de Pac-Man si aucun mur n'est rencontré
-                self.x, self.y = new_pos
-
                 # [x] Convertir les nouvelles coordonnées de la grille en position à l'écran
                 # Utiliser une fonction comme `grid_to_screen` pour obtenir les coordonnées sur l'écran.
-
                 # [x] Mettre à jour la position du rectangle de Pac-Man dans l'interface
                 # Mettre à jour `self.rect.topleft` avec la nouvelle position à l'écran pour déplacer l'affichage de Pac-Man.
-                self.rect.topleft = self._get_screen_pos()
+        
+        new_pos = None
+        directions = [self.premove_direction, self.direction]
+        
+        for d in directions:
+            if d:
+                new_pos = self.calculate_new_pos(d)
+                if(new_pos):
+                    self.direction = d
+                    self.x, self.y = new_pos
+                    self.rect.topleft = self._get_screen_pos()
+                    return
 
-    def set_direction(self, direction):
-        self.direction = direction
+    def set_premove_direction(self, direction):
+        self.premove_direction = direction
 
     def stop(self):
         self.direction = None

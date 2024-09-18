@@ -114,22 +114,22 @@ class Game:
         }
 
         vect = VECTEURS_DIRECTION.get(event.key)
-        if(vect != None and self.check_collision(vect)):
-            self.pacman.set_direction(vect)
+        if(vect != None): #and self.check_collision(vect)):
+            self.pacman.set_premove_direction(vect)
                 
 
-    def check_collision(self, direction):
-        # # [x] Extraire les coordonnées de déplacement de la direction (dx, dy)
-        # dx, dy = direction
+    # def check_collision(self, direction):
+    #     # # [x] Extraire les coordonnées de déplacement de la direction (dx, dy)
+    #     # dx, dy = direction
 
-        # # [x] Calculer la nouvelle position de Pac-Man après le déplacement (new_x, new_y) avec la formule new_x = self.pacman.x + dx
-        # new_x, new_y = self.pacman.x + dx, self.pacman.y + dy
+    #     # # [x] Calculer la nouvelle position de Pac-Man après le déplacement (new_x, new_y) avec la formule new_x = self.pacman.x + dx
+    #     # new_x, new_y = self.pacman.x + dx, self.pacman.y + dy
     
-        # # [x] Vérifier si la nouvelle position est un chemin valide ou un mur
-        # # Utiliser la grille (`self.board`) pour déterminer si la case est un chemin (0) ou un mur (1). return True si c'est un chemin, False si c'est un mur.
-        # return self.board[int(round(new_y))][int(round(new_x))] == 0
+    #     # # [x] Vérifier si la nouvelle position est un chemin valide ou un mur
+    #     # # Utiliser la grille (`self.board`) pour déterminer si la case est un chemin (0) ou un mur (1). return True si c'est un chemin, False si c'est un mur.
+    #     # return self.board[int(round(new_y))][int(round(new_x))] == 0
         
-        return self.pacman.check_collision(self.pacman.calculate_new_pos(direction))
+    #     return self.pacman.check_collision(self.pacman.calculate_new_pos(direction))
 
     def update(self):
         for ghost in self.ghosts:
@@ -203,11 +203,12 @@ class Game:
 
     def check_collision_between_ghosts_and_pacman(self):
         for ghost in self.ghosts:
-            if ghost.rect.colliderect(self.pacman.rect):
+            if not ghost.dead and ghost.rect.colliderect(self.pacman.rect):
                 if ghost.edible:
                     ghost.stop()
                     ghost.die()
-                elif not ghost.dead:
+                    self.score += 200
+                else:
                     # Game over
                     if self.pacman.die():
                         self.red_ghost_instance.stop()
