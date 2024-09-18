@@ -1,5 +1,4 @@
 special_coins_pos = [(1, 1), (14, 1), (1, 13), (14, 13)]
-center_pos = [(12, 7), (11, 7), (13, 7), (14, 7)]
 
 def create_board():
 
@@ -37,10 +36,9 @@ def create_coins(board):
 
     # [x] Ajouter la position de toutes les cases '0' à la variable coins. Pour ajouter un élément, vous pouvez utiliser l'expression suivante : coins.append((x, y))
     # [x] Retirer les coins de chaque "coin" du carré. Vous devez utiliser la variable 'special_coins_pos' # XXX et la fonction 'remove'.
-    # [x] Retirer les coins aux positions centrales, en utilisant la variable 'center_pos'.
     for i in range(len(board)):
         for j in range(len(board[i])):
-            if(board[i][j] == 0 and (j, i) not in special_coins_pos + center_pos):
+            if(board[i][j] == 0 and (j, i) not in special_coins_pos):
                 coins.append((j,i))
 
     return coins
