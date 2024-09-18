@@ -5,7 +5,7 @@ import random
 class Ghost:
     def __init__(self, pos, img, maze, screen):
         self.pos = list(pos)  # Position en pixels
-        self.speed = SPEED  # Vitesse en pixels par frame
+        self.speed = GHOST_SPEED  # Vitesse en pixels par frame
         self.img = img  # Image du fantôme
         self.direction = Direction.UP  # Direction initiale
         self.dead = False  # État du fantôme

@@ -54,8 +54,7 @@ while running:
 
     # Rafraîchir l'affichage
     pygame.display.flip()
-    # FIXME Augmenter le taux de rafraichissement sans impacter la vitesse de Ghost/PacMan
-    pygame.time.wait(100)  # Réduit la vitesse pour mieux voir les déplacements
+    pygame.time.wait(int(round(1e3/60)))  # Réduit la vitesse pour mieux voir les déplacements
 
 pygame.quit()
 sys.exit()

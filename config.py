@@ -1,4 +1,7 @@
 # parametre de l'ecran
+from fractions import Fraction
+
+
 screen_width = 800
 screen_height = 800
 
@@ -36,7 +39,8 @@ PACMAN_START_POS = (7, 9)
 RANDOM_POS = [RESET_POS1, RESET_POS2, RESET_POS3, RESET_POS4]
 
 # vitesse du ghost
-SPEED = 0.35
+GHOST_SPEED = 0.35/6
+PACMAN_SPEED = Fraction(1, 6)
 EDIBLE_GHOST_TIMER = 5
 
 # fonction utilitaires

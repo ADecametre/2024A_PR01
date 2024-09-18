@@ -119,15 +119,17 @@ class Game:
                 
 
     def check_collision(self, direction):
-        # [x] Extraire les coordonnées de déplacement de la direction (dx, dy)
-        dx, dy = direction
+        # # [x] Extraire les coordonnées de déplacement de la direction (dx, dy)
+        # dx, dy = direction
 
-        # [x] Calculer la nouvelle position de Pac-Man après le déplacement (new_x, new_y) avec la formule new_x = self.pacman.x + dx
-        new_x, new_y = self.pacman.x + dx, self.pacman.y + dy
+        # # [x] Calculer la nouvelle position de Pac-Man après le déplacement (new_x, new_y) avec la formule new_x = self.pacman.x + dx
+        # new_x, new_y = self.pacman.x + dx, self.pacman.y + dy
     
-        # [x] Vérifier si la nouvelle position est un chemin valide ou un mur
-        # Utiliser la grille (`self.board`) pour déterminer si la case est un chemin (0) ou un mur (1). return True si c'est un chemin, False si c'est un mur.
-        return self.board[new_y][new_x] == 0
+        # # [x] Vérifier si la nouvelle position est un chemin valide ou un mur
+        # # Utiliser la grille (`self.board`) pour déterminer si la case est un chemin (0) ou un mur (1). return True si c'est un chemin, False si c'est un mur.
+        # return self.board[int(round(new_y))][int(round(new_x))] == 0
+        
+        return self.pacman.check_collision(self.pacman.calculate_new_pos(direction))
 
     def update(self):
         for ghost in self.ghosts:
