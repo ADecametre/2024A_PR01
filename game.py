@@ -15,6 +15,7 @@ class Game:
         self.board = create_board()  # Initialize the board
         self.coins = create_coins(self.board)  # Initialize the coins
         self.special_coins = create_special_coins(self.board)  # Initialize the special coins
+        self.eat_mode_timer = None
 
         self.pacman = PacMan(self.screen, self.board)  # Initialize Pac-Man
         pygame.display.set_caption("Pac-Man")
@@ -175,8 +176,9 @@ class Game:
 
 
     def activate_eat_mode(self):
-        timer = threading.Timer(EDIBLE_GHOST_TIMER, self.deactivate_eat_mode)
-        timer.start()
+        if self.eat_mode_timer: self.eat_mode_timer.cancel()
+        self.eat_mode_timer = threading.Timer(EDIBLE_GHOST_TIMER, self.deactivate_eat_mode)
+        self.eat_mode_timer.start()
 
         # Make the ghosts edible
         self.red_ghost_instance.edible = True
