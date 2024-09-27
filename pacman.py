@@ -6,29 +6,23 @@ class PacMan:
     def __init__(self, screen, board):
         self.screen = screen
         self.board = board
-        self.x, self.y = PACMAN_START_POS
+        self.pos = PACMAN_START_POS
         self.speed = PACMAN_SPEED
-        self.size = 40  # Size of Pac-Man (radius)
-        self.color = (255, 255, 0)  # Yellow color for Pac-Man
-        self.size_grid = 50  
+        self.size = PACMAN_SIZE  # Size of Pac-Man (radius)
+        self.color = (255, 255, 0)  # Yellow color for Pac-Man # NOTE Amazing
+        self.size_grid = (TILE_WIDTH, TILE_HEIGHT)
         self.premove_direction = None
         self.direction = None
-        self.frame_count = 0
-        self.changed_direction = None
+        self.frame_count = 0 # ?
         self.mouth_open_angle = 45  # Angle of the mouth opening (in degrees) # NOTE Totally useful :)
         self.lives = 3
         #self.screen_pos = grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
-        self.rect = pygame.Rect(self._get_screen_pos(), PACMAN_SIZE)
-
-    def _get_screen_pos(self):
-        return grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
-    
-    def get_pos(self): return (self.x, self.y)
+        self.rect = pygame.Rect(grid_to_screen(self.pos), self.size)
         
     def draw(self):
         # Load the Pac-Man image
         pacman_image = pygame.image.load('assets/images/pacman.png')
-        pacman_image = pygame.transform.scale(pacman_image, (self.size, self.size))
+        pacman_image = pygame.transform.scale(pacman_image, self.size)
 
         # Rotate the image based on the direction
         if self.direction is None or self.direction == (1, 0):  # Default to the right
@@ -41,8 +35,10 @@ class PacMan:
             rotated_image = pygame.transform.rotate(pacman_image, 270)
 
         # Calculate the screen position of Pac-Man
-        screen_x = float(self.x) * self.size_grid
-        screen_y = float(self.y) * self.size_grid
+        x, y = self.pos
+        grid_w, grid_h = self.size_grid
+        screen_x = float(x) * grid_w
+        screen_y = float(y) * grid_h
 
         # Draw the rotated image at the current position
         self.screen.blit(rotated_image, (screen_x, screen_y))
@@ -58,7 +54,9 @@ class PacMan:
     
     def calculate_new_pos(self, vect):
         if(vect == None): return None
-        new_pos = self.x + vect[0] * self.speed, self.y + vect[1] * self.speed
+        x, y = self.pos
+        dx, dy = vect
+        new_pos = x + dx * self.speed, y + dy * self.speed
         return new_pos if self.check_collision(new_pos) else None
 
     def move(self):
@@ -82,8 +80,8 @@ class PacMan:
                 new_pos = self.calculate_new_pos(d)
                 if(new_pos):
                     self.direction = d
-                    self.x, self.y = new_pos
-                    self.rect.topleft = self._get_screen_pos()
+                    self.pos = new_pos
+                    self.rect.topleft = grid_to_screen(self.pos)
                     return
 
     def set_premove_direction(self, direction):
@@ -93,8 +91,8 @@ class PacMan:
         self.direction = None
 
     def reset(self):
-        self.x, self.y = PACMAN_START_POS
-        self.direction = None
+        self.stop()
+        self.pos = PACMAN_START_POS
 
     def die(self):
 

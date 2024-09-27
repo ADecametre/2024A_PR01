@@ -44,7 +44,7 @@ PACMAN_SPEED = Fraction(1, 12)
 EDIBLE_GHOST_TIMER = 5
 
 # fonction utilitaires
-def grid_to_screen(grid_pos, tile_size):
-    screen_x = grid_pos[0] * tile_size[0]
-    screen_y = grid_pos[1] * tile_size[1]
+def grid_to_screen(grid_pos):
+    screen_x = grid_pos[0] * TILE_WIDTH
+    screen_y = grid_pos[1] * TILE_HEIGHT
     return screen_x, screen_y
