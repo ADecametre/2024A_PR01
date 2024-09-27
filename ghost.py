@@ -26,7 +26,7 @@ class Ghost:
         Returns:
             tuple[tuple[float,float],Rect]: (next_pos, next_rect)
         """
-        if(direction == None): direction = self.direction
+        if(not direction): direction = self.direction
 
         # [x] Calculer la prochaine position en fonction de la direction et de la vitesse
         # Utilisez `self.direction` pour déterminer la direction et `self.speed` pour le déplacement.
@@ -56,8 +56,7 @@ class Ghost:
             # Utilisez `self.check_collision()` pour détecter si le fantôme va heurter un mur.
             if(self.check_collision(next_rect)):
                 # [x] Si aucune collision n'est détectée, mettre à jour la position du fantôme
-                self.pos = next_pos
-                self.rect = next_rect
+                self.pos, self.rect = next_pos, next_rect
             else:
                 # [x] Changer la direction du fantôme s'il rencontre un mur
                 self.change_direction()
