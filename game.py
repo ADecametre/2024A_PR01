@@ -116,7 +116,7 @@ class Game:
 
         vect = VECTEURS_DIRECTION.get(event.key)
         if(vect != None): #and self.check_collision(vect)):
-            self.pacman.set_premove_direction(vect)
+            self.pacman.premove_direction = vect
                 
 
     # def check_collision(self, direction):

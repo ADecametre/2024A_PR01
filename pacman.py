@@ -6,7 +6,7 @@ class PacMan:
     def __init__(self, screen, board):
         self.screen = screen
         self.board = board
-        self.pos = PACMAN_START_POS
+        self._pos = PACMAN_START_POS
         self.speed = PACMAN_SPEED
         self.size = PACMAN_SIZE  # Size of Pac-Man (radius)
         self.color = (255, 255, 0)  # Yellow color for Pac-Man # NOTE Amazing
@@ -17,7 +17,18 @@ class PacMan:
         self.mouth_open_angle = 45  # Angle of the mouth opening (in degrees) # NOTE Totally useful :)
         self.lives = 3
         #self.screen_pos = grid_to_screen(grid_pos=[self.x, self.y], tile_size=[self.size_grid, self.size_grid])
-        self.rect = pygame.Rect(grid_to_screen(self.pos), self.size)
+        self._rect = pygame.Rect(grid_to_screen(self.pos), self.size)
+    
+    @property
+    def pos(self): return self._pos
+    
+    @pos.setter
+    def pos(self, value):
+        self._pos = value
+        self._rect.topleft = grid_to_screen(self.pos)
+        
+    @property
+    def rect(self): return self._rect
         
     def draw(self):
         # Load the Pac-Man image
@@ -81,18 +92,14 @@ class PacMan:
                 if(new_pos):
                     self.direction = d
                     self.pos = new_pos
-                    self.rect.topleft = grid_to_screen(self.pos)
                     return
 
-    def set_premove_direction(self, direction):
-        self.premove_direction = direction
-
     def stop(self):
-        self.direction = None
+        self.direction = self.premove_direction = None
 
     def reset(self):
-        self.stop()
         self.pos = PACMAN_START_POS
+        self.stop()
 
     def die(self):
 
