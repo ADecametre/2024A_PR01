@@ -21,7 +21,7 @@ class Ghost:
         """Calcule la prochaine position
 
         Args:
-            direction (tuple[float,float], optional): Nouvelle direction. Defaults to None.
+            direction (tuple[float,float], optional): Nouvelle direction. Defaults to self.direction.
 
         Returns:
             tuple[tuple[float,float],Rect]: (next_pos, next_rect)
