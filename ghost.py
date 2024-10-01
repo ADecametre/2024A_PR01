@@ -15,6 +15,7 @@ class Ghost:
         self.death_timer = 0
         self.edible = False
         self.edible_img = pygame.transform.scale(pygame.image.load('assets/images/powerup.png'), GHOST_SIZE)
+        self.edible_img_blink = recolor(self.edible_img.copy())
         self.dead_img = pygame.transform.scale(pygame.image.load('assets/images/dead.png'), GHOST_SIZE)   # Image du fantôme quand il est mort
 
     def _get_next(self, direction=None):

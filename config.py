@@ -48,3 +48,10 @@ def grid_to_screen(grid_pos):
     screen_x = grid_pos[0] * TILE_WIDTH
     screen_y = grid_pos[1] * TILE_HEIGHT
     return screen_x, screen_y
+
+import pygame
+
+def recolor(img):
+    COLOR = (220, 150, 200)
+    img.fill(COLOR, special_flags=pygame.BLEND_RGB_MAX)
+    return img
